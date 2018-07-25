@@ -15,7 +15,7 @@ namespace DemoExport_csv35
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmAutoExport());
+            Application.Run(new frmDocDuLieuMitsu());
         }
     }
 }

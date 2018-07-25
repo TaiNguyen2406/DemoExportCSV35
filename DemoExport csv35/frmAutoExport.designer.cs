@@ -36,6 +36,7 @@
             this.mnuStop = new System.Windows.Forms.ToolStripMenuItem();
             this.thờiGianXuấtFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.txtThoiGian = new System.Windows.Forms.ToolStripTextBox();
+            this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -77,15 +78,23 @@
             // thờiGianXuấtFileToolStripMenuItem
             // 
             this.thờiGianXuấtFileToolStripMenuItem.Name = "thờiGianXuấtFileToolStripMenuItem";
-            this.thờiGianXuấtFileToolStripMenuItem.Size = new System.Drawing.Size(113, 23);
-            this.thờiGianXuấtFileToolStripMenuItem.Text = "Thời gian xuất file";
+            this.thờiGianXuấtFileToolStripMenuItem.Size = new System.Drawing.Size(129, 23);
+            this.thờiGianXuấtFileToolStripMenuItem.Text = "Thời gian xuất file (s)";
             // 
             // txtThoiGian
             // 
             this.txtThoiGian.Name = "txtThoiGian";
             this.txtThoiGian.Size = new System.Drawing.Size(30, 23);
-            this.txtThoiGian.Text = "60";
+            this.txtThoiGian.Text = "5";
             this.txtThoiGian.ToolTipText = "Thời gian xuất file";
+            // 
+            // notifyIcon1
+            // 
+            this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
+            this.notifyIcon1.Text = "Hitachi recorder";
+            this.notifyIcon1.Visible = true;
+            this.notifyIcon1.DoubleClick += new System.EventHandler(this.notifyIcon1_DoubleClick);
+            this.notifyIcon1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_MouseDoubleClick);
             // 
             // frmAutoExport
             // 
@@ -97,7 +106,9 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "frmAutoExport";
-            this.Text = "Form1";
+            this.Text = "Hitachi recorder";
+            this.MinimumSizeChanged += new System.EventHandler(this.frmAutoExport_MinimumSizeChanged);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmAutoExport_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).EndInit();
             this.menuStrip1.ResumeLayout(false);
@@ -115,6 +126,7 @@
         private System.Windows.Forms.ToolStripMenuItem mnuStop;
         private System.Windows.Forms.ToolStripMenuItem thờiGianXuấtFileToolStripMenuItem;
         private System.Windows.Forms.ToolStripTextBox txtThoiGian;
+        private System.Windows.Forms.NotifyIcon notifyIcon1;
     }
 }
 

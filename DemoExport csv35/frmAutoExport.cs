@@ -19,21 +19,31 @@ namespace DemoExport_csv35
         }
         private void Form1_Load(object sender, EventArgs e)
         {
-            //dgv.DataSource = TaoBang();
-            //if (dgv.Columns.Count >0)
+            this.ShowInTaskbar = false;
+
+            timer1.Interval = Convert.ToInt32(txtThoiGian.Text) * 1000;
+            //DataTable dt = TaoBang();
+            //if(dt!=null)
             //{
-            //    dgv.Columns[0].Width = 80;
-            //    dgv.Columns[1].Width = 80;
-            //    for (int i = 2; i < dgv.ColumnCount - 1; i++)
+            //    dgv.DataSource = TaoBang();
+            //    if (dgv.Columns.Count > 0)
             //    {
-            //        dgv.Columns[i].Width = 40;
+            //        dgv.Columns[0].Width = 80;
+            //        dgv.Columns[1].Width = 80;
+            //        for (int i = 2; i < dgv.ColumnCount - 1; i++)
+            //        {
+            //            dgv.Columns[i].Width = 40;
+            //        }
             //    }
             //}
-          
+         
+
         }
+        Boolean isOk = false;
         //static int seed = Environment.TickCount;
         //static readonly ThreadLocal<Random> random =
         //    new ThreadLocal<Random>(() => new Random(Interlocked.Increment(ref seed)));
+        Random rnd = new Random();
         private DataTable TaoBang()
         {
             DataTable dt = new DataTable();
@@ -97,7 +107,7 @@ namespace DemoExport_csv35
             dt.Rows[0]["Time"] = DateTime.Now.ToString("HH:mm:ss");
             for (int i = 2; i <= dt.Columns.Count - 1; i++)
             {
-                Random rnd = new Random();
+
                 if (i <= 5)
                 {
                     dt.Rows[0][i] = rnd.Next(1000, 10000);
@@ -108,30 +118,35 @@ namespace DemoExport_csv35
                 }
 
             }
-            //Thread t = new Thread(() =>
-            //{
-            //    CheckForIllegalCrossThreadCalls = false;
-            //    for (int i = 2; i <= dt.Columns.Count - 1; i++)
-            //    {
-            //        Random rnd = new Random();
-            //        if (i <= 5)
-            //        {
-            //            dt.Rows[0][i] = rnd.Next(1000, 10000);
-            //        }
-            //        else
-            //        {
-            //            dt.Rows[0][i] = rnd.Next(0, 500);
-            //        }
-
-            //    }
-            //    isOk = true;
-            //});
-            //t.Start();
-            //while(isOk !=true)
-            //{
-            //    return null;
-            //}
             return dt;
+            // Thread t = new Thread(() =>
+            // {
+            //     CheckForIllegalCrossThreadCalls = false;
+            //     for (int i = 2; i <= dt.Columns.Count - 1; i++)
+            //     {
+            //         Random rnd = new Random();
+            //         if (i <= 5)
+            //         {
+            //             dt.Rows[0][i] = rnd.Next(1000, 10000);
+            //         }
+            //         else
+            //         {
+            //             dt.Rows[0][i] = rnd.Next(0, 500);
+            //         }
+
+            //     }
+            //     isOk = true;
+            // });
+            // t.Start();
+            //if (isOk==true)
+            // {
+            //     return dt;
+            // }
+            //else
+            // {
+            //     return null;
+            // }
+
         }
         public void Export(DataTable dt)
         {
@@ -176,14 +191,14 @@ namespace DemoExport_csv35
         private void timer1_Tick(object sender, EventArgs e)
         {
             DataTable dt = new DataTable();
-            if (dt==null)
+            dt = TaoBang();
+            if (dt == null)
             {
                 return;
             }
-            dt = TaoBang();
-           // dgv.DataSource = dt;
+         //    dgv.DataSource = dt;
             Export(dt);
-            timer1.Interval = Convert.ToInt32(txtThoiGian.Text)*1000;
+            timer1.Interval = Convert.ToInt32(txtThoiGian.Text) * 1000;
         }
 
         private void stopToolStripMenuItem_Click(object sender, EventArgs e)
@@ -200,5 +215,29 @@ namespace DemoExport_csv35
             }
         }
 
+        private void notifyIcon1_DoubleClick(object sender, EventArgs e)
+        {
+            this.Show();
+            this.WindowState = FormWindowState.Normal;
+        }
+
+        private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            this.Show();
+        }
+
+        private void frmAutoExport_MinimumSizeChanged(object sender, EventArgs e)
+        {
+            this.Visible = false;
+        }
+
+        private void frmAutoExport_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if(MessageBox.Show("Bạn có muốn đóng chương trình", "Hitachi recorder", MessageBoxButtons.OKCancel,MessageBoxIcon.Question)==DialogResult.Cancel)
+            {
+                e.Cancel = true;
+            }
+           
+        }
     }
 }
